@@ -1,0 +1,42 @@
+let violations: Set(ASTNode) = StringLiteral.allInstances()->select(literal1: StringLiteral |
+  StringLiteral.allInstances()->exists(literal3: StringLiteral | 
+  true
+   and
+  StringLiteral.allInstances()->exists(literal4: StringLiteral | 
+   true
+    and
+  true and
+  StringLiteral.allInstances()->exists(literal2: StringLiteral | 
+    true
+     and
+  literal1 <> literal3 and literal1 <> literal2 and literal1 <> literal4 and
+     literal3 <> literal2 and literal3 <> literal4 and
+     literal2 <> literal4 and
+     let name: String = literal1.oclAsType(StringLiteral).escapedValue in
+     literal3.oclAsType(StringLiteral).escapedValue = name and
+     literal2.oclAsType(StringLiteral).escapedValue = name and
+     literal4.oclAsType(StringLiteral).escapedValue = name and
+     literal1.oclAsType(StringLiteral).escapedValue.matches('"....(.)*"'))))) 
+->reject(node: ASTNode | node->closure(oclContainer())->exists(oclIsKindOf(Javadoc)))
+->collect(node: ASTNode |
+  if node.originalCompilationUnit <> null then
+    node
+  else
+    let nodesWithOriginalCompilationUnit: OrderedSet(ASTNode) = node->asOrderedSet()->closure(n: ASTNode | 
+  	  if n.originalCompilationUnit <> null then 
+        n 
+      elseif n.oclContainer().oclIsKindOf(ASTNode) then 
+        n.oclContainer().oclAsType(ASTNode) 
+      else 
+        null 
+      endif
+    )->select(n | n <> null and not n.originalCompilationUnit.oclIsUndefined()) in 
+    if nodesWithOriginalCompilationUnit->size() > 0 then 
+      nodesWithOriginalCompilationUnit->first() 
+    else 
+      null 
+    endif
+  endif
+)
+->select(node: ASTNode | node <> null) in
+violations
