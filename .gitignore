@@ -1,2 +1,4 @@
 /.metadata/
 /target-projects/*
+/auxiliary-tools/pmd-ccsl-diff/bin
+/auxiliary-tools/pmd-csv-extractor/bin

@@ -1,9 +1,7 @@
 package main;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +11,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import csv.CSVColumn;
 import csv.CSVLine;
 import csv.CSVObject;
 import csv.CSVParserException;
@@ -29,7 +26,7 @@ public class Main {
 		for (Entry<String, List<String>> ruleEntry : violationsPerRule.entrySet()) {
 			ruleName = ruleEntry.getKey();
 			violations = ruleEntry.getValue();
-			File violationFile = new File(outputDir + "\\" + ruleName + "-pmd-violations.txt");
+			File violationFile = new File(outputDir.replace("\\", "/") + "/" + ruleName + "-pmd-violations.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(violationFile));
 			System.out.println("Writting file " + violationFile.getName());
 			for (String v : violations) {

@@ -14,7 +14,7 @@ public class DiffWriter {
 
 	
 	public static void writeDiffFile(String dir, RuleViolation ccslViolation, RuleViolation pmdViolation) throws IOException {
-		File diffFile = new File(dir + "\\" + ccslViolation.getRuleName() + "-diff.txt");
+		File diffFile = new File(dir.replace("\\", "/") + "/" + ccslViolation.getRuleName() + "-diff.txt");
 		List<String> exclusiveCcslViolations = ccslViolation.diff(pmdViolation);
 		List<String> exclusivePmdViolations = pmdViolation.diff(ccslViolation);
 		BufferedWriter writter = new BufferedWriter(new FileWriter(diffFile));
