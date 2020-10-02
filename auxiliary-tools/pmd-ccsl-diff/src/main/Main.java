@@ -31,13 +31,13 @@ public class Main {
 					ccslReports.put(ruleViolation.getRuleName(), ruleViolation);
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
 	}
 
 	public static void main(String[] args) throws IOException {
+		args = new String[]{"D:\\testComparator"};
 		if (args.length > 0) {
 			String strDir = args[0];
 			File fileDir = new File(strDir);
@@ -47,6 +47,8 @@ public class Main {
 				populatePMDAndCCSLReports(strDir, pmdReports, ccslReports);
 				System.out.println("*** Writting diff files ***");
 				DiffWriter.writeDiffFiles(strDir, ccslReports, pmdReports);
+				System.out.println("*** Writting CSV File ***");
+				DiffWriter.writeCSVDiffFile(strDir, ccslReports, pmdReports);
 			} else {
 				System.out.println(strDir + "is not a directoy");
 			}
