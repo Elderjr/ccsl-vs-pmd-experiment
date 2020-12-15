@@ -37,7 +37,6 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws IOException {
-		args = new String[]{"D:\\testComparator"};
 		if (args.length > 0) {
 			String strDir = args[0];
 			File fileDir = new File(strDir);
